@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<title>StoryMap</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+<script type="text/javascript">(function(e){e.fn.extend({slimScroll:function(f){var a=e.extend({width:"auto",height:"250px",size:"7px",color:"#000",position:"right",distance:"1px",start:"top",opacity:.4,alwaysVisible:!1,disableFadeOut:!1,railVisible:!1,railColor:"#333",railOpacity:.2,railDraggable:!0,railClass:"slimScrollRail",barClass:"slimScrollBar",wrapperClass:"slimScrollDiv",allowPageScroll:!1,wheelStep:20,touchScrollStep:200,borderRadius:"7px",railBorderRadius:"7px"},f);this.each(function(){function v(d){if(r){d=d||window.event;
+var c=0;d.wheelDelta&&(c=-d.wheelDelta/120);d.detail&&(c=d.detail/3);e(d.target||d.srcTarget||d.srcElement).closest("."+a.wrapperClass).is(b.parent())&&n(c,!0);d.preventDefault&&!k&&d.preventDefault();k||(d.returnValue=!1)}}function n(d,g,e){k=!1;var f=b.outerHeight()-c.outerHeight();g&&(g=parseInt(c.css("top"))+d*parseInt(a.wheelStep)/100*c.outerHeight(),g=Math.min(Math.max(g,0),f),g=0<d?Math.ceil(g):Math.floor(g),c.css({top:g+"px"}));l=parseInt(c.css("top"))/(b.outerHeight()-c.outerHeight());g=
+l*(b[0].scrollHeight-b.outerHeight());e&&(g=d,d=g/b[0].scrollHeight*b.outerHeight(),d=Math.min(Math.max(d,0),f),c.css({top:d+"px"}));b.scrollTop(g);b.trigger("slimscrolling",~~g);w();p()}function x(){u=Math.max(b.outerHeight()/b[0].scrollHeight*b.outerHeight(),30);c.css({height:u+"px"});var a=u==b.outerHeight()?"none":"block";c.css({display:a})}function w(){x();clearTimeout(B);l==~~l?(k=a.allowPageScroll,C!=l&&b.trigger("slimscroll",0==~~l?"top":"bottom")):k=!1;C=l;u>=b.outerHeight()?k=!0:(c.stop(!0,
+!0).fadeIn("fast"),a.railVisible&&m.stop(!0,!0).fadeIn("fast"))}function p(){a.alwaysVisible||(B=setTimeout(function(){a.disableFadeOut&&r||y||z||(c.fadeOut("slow"),m.fadeOut("slow"))},1E3))}var r,y,z,B,A,u,l,C,k=!1,b=e(this);if(b.parent().hasClass(a.wrapperClass)){var q=b.scrollTop(),c=b.siblings("."+a.barClass),m=b.siblings("."+a.railClass);x();if(e.isPlainObject(f)){if("height"in f&&"auto"==f.height){b.parent().css("height","auto");b.css("height","auto");var h=b.parent().parent().height();b.parent().css("height",
+h);b.css("height",h)}else"height"in f&&(h=f.height,b.parent().css("height",h),b.css("height",h));if("scrollTo"in f)q=parseInt(a.scrollTo);else if("scrollBy"in f)q+=parseInt(a.scrollBy);else if("destroy"in f){c.remove();m.remove();b.unwrap();return}n(q,!1,!0)}}else if(!(e.isPlainObject(f)&&"destroy"in f)){a.height="auto"==a.height?b.parent().height():a.height;q=e("<div></div>").addClass(a.wrapperClass).css({position:"relative",overflow:"hidden",width:a.width,height:a.height});b.css({overflow:"hidden",
+width:a.width,height:a.height});var m=e("<div></div>").addClass(a.railClass).css({width:a.size,height:"100%",position:"absolute",top:0,display:a.alwaysVisible&&a.railVisible?"block":"none","border-radius":a.railBorderRadius,background:a.railColor,opacity:a.railOpacity,zIndex:90}),c=e("<div></div>").addClass(a.barClass).css({background:a.color,width:a.size,position:"absolute",top:0,opacity:a.opacity,display:a.alwaysVisible?"block":"none","border-radius":a.borderRadius,BorderRadius:a.borderRadius,MozBorderRadius:a.borderRadius,
+WebkitBorderRadius:a.borderRadius,zIndex:99}),h="right"==a.position?{right:a.distance}:{left:a.distance};m.css(h);c.css(h);b.wrap(q);b.parent().append(c);b.parent().append(m);a.railDraggable&&c.bind("mousedown",function(a){var b=e(document);z=!0;t=parseFloat(c.css("top"));pageY=a.pageY;b.bind("mousemove.slimscroll",function(a){currTop=t+a.pageY-pageY;c.css("top",currTop);n(0,c.position().top,!1)});b.bind("mouseup.slimscroll",function(a){z=!1;p();b.unbind(".slimscroll")});return!1}).bind("selectstart.slimscroll",
+function(a){a.stopPropagation();a.preventDefault();return!1});m.hover(function(){w()},function(){p()});c.hover(function(){y=!0},function(){y=!1});b.hover(function(){r=!0;w();p()},function(){r=!1;p()});b.bind("touchstart",function(a,b){a.originalEvent.touches.length&&(A=a.originalEvent.touches[0].pageY)});b.bind("touchmove",function(b){k||b.originalEvent.preventDefault();b.originalEvent.touches.length&&(n((A-b.originalEvent.touches[0].pageY)/a.touchScrollStep,!0),A=b.originalEvent.touches[0].pageY)});
+x();"bottom"===a.start?(c.css({top:b.outerHeight()-c.outerHeight()}),n(0,!0)):"top"!==a.start&&(n(e(a.start).position().top,null,!0),a.alwaysVisible||c.hide());window.addEventListener?(this.addEventListener("DOMMouseScroll",v,!1),this.addEventListener("mousewheel",v,!1)):document.attachEvent("onmousewheel",v)}});return this}});e.fn.extend({slimscroll:e.fn.slimScroll})})(jQuery);</script>
+<style>
+    
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+.w3-theme-l5 {color:#000 !important; background-color:#eef3fb !important}
+.w3-theme-l4 {color:#000 !important; background-color:#c8d9f2 !important}
+.w3-theme-l3 {color:#000 !important; background-color:#90b2e5 !important}
+.w3-theme-l2 {color:#fff !important; background-color:#598cd8 !important}
+.w3-theme-l1 {color:#fff !important; background-color:#2d68c0 !important}
+.w3-theme-d1 {color:#fff !important; background-color:#1d427b !important}
+.w3-theme-d2 {color:#fff !important; background-color:#1a3b6d !important}
+.w3-theme-d3 {color:#fff !important; background-color:#16345f !important}
+.w3-theme-d4 {color:#fff !important; background-color:#132c52 !important}
+.w3-theme-d5 {color:#fff !important; background-color:#102544 !important}
+
+.w3-theme-light {color:#000 !important; background-color:#eef3fb !important}
+.w3-theme-dark {color:#fff !important; background-color:#102544 !important}
+.w3-theme-action {color:#fff !important; background-color:#102544 !important}
+
+.w3-theme {color:#fff !important; background-color:#204a87 !important}
+.w3-text-theme {color:#204a87 !important}
+.w3-border-theme {border-color:#204a87 !important}
+
+.w3-hover-theme:hover {color:#fff !important; background-color:#204a87 !important}
+.w3-hover-text-theme {color:#204a87 !important}
+.w3-hover-border-theme:hover {border-color:#204a87 !important}
+
+.footer{position:absolute;bottom:0px;width:100%;}
+
+.header{
+    border-bottom: 1px solid #598cd8;
+    -webkit-box-shadow: 0px 0px 6px 2px rgba(184,184,184,1);
+    -moz-box-shadow: 0px 0px 6px 2px rgba(184,184,184,1);
+    box-shadow: 0px 0px 6px 2px rgba(184,184,184,1);    
+}
+
+.navigation{ float:right;}
+</style>
+<body>
+
+<header class="w3-container w3-theme header">
+  <div class="w3-quarter"><h3 id="story-title"></h3></div>
+  <div class="w3-rest navigation w3-padding">
+    <div id="pages" class="w3-bar">
+    </div>  
+  </div>
+</header>
+
+
+<div>
+<div class="w3-third story-wrapper">
+    <div id="story" class="story w3-margin-small">
+        <div class="w3-padding w3-light-grey"><h4 class="title"></h4></div>
+        <div class="content w3-padding"><p></p></div>
+    
+    </div>
+</div>
+<div class="w3-twothird map-wrapper"></div>
+</div>
+
+<footer class="footer w3-padding w3-theme w3-margin-top">
+  2017 | Martin Sudmanns
+</footer>
+
+</body>
+
+<script>
+$(function(){
+    
+   var current_page = 0;
+   var current_map = null;
+    
+   var height = $(document).height();
+   var margins = 60;
+   var story_height = height - $("header").height() - $("footer").height() - margins;
+   var map_height = height - $(".header").height() - $(".footer").height() -58;
+   
+   $(".story-wrapper").height(story_height);
+   $(".map-wrapper").height(map_height);
+   
+
+   var storymap = {
+       title: "This is the storymap title",
+       pages: [{
+            title: "Why Open-Source StoryMaps are cool as well",
+            content: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur",
+            map: function(){
+                $("#map").remove();
+                $(".map-wrapper").append('<div id="map"></div>');
+                $("#map").height(map_height);                
+                current_map = L.map('map').setView([48, 11], 5);
+                new L.StamenTileLayer("terrain").addTo(current_map)
+            }
+       },{
+            title:"This is the next page",
+            content: "this is content",
+            map: function(){
+                current_map.setView([48, 11], 10);
+            }            
+        }]
+   
+    };
+    
+    
+    /*
+     * Set pages
+     */
+
+    function setPage(page){
+        $("#story").find(".title").text(storymap.pages[page].title);
+        $("#story").find(".content")
+            .text(storymap.pages[page].content)
+            .slimScroll({
+                height:  (story_height - 35 - $("#story").find(".title").height()) + 'px'
+            });
+        
+
+        storymap.pages[page].map();
+        current_page = page;
+        
+        if(page==0){
+            $("#page-back").addClass("w3-disabled");
+        }else{
+            $("#page-back").removeClass("w3-disabled");
+        }
+        
+        if(page==(storymap.pages.length-1)){
+            $("#page-forward").addClass("w3-disabled");
+        }else{
+            $("#page-forward").removeClass("w3-disabled");
+        }
+        
+    }
+        
+     $("#pages").append('<a href="#" id="page-back" class="w3-button w3-disabled page">&laquo;</a>');
+      for (var i=0;i<storymap.pages.length;i++){
+          $("#pages").append('<a href="#" class="w3-button page">'+(i+1)+'</a>');
+      }
+      $("#pages").append(' <a href="#" id="page-forward" class="w3-button page">&raquo;</a>');
+     
+     $(".page").click(function(){
+         if ($(this).attr("id") == "page-back"){
+             var page = current_page -1;
+             setPage(page);
+         }else if($(this).attr("id") == "page-forward"){
+             var page = current_page + 1;
+             setPage(page);
+         }else{
+           var page = parseInt($(this).text()) - 1;
+           setPage(page);
+        }
+     });
+      
+    /*
+     * Set storymap
+     */
+    $("#story-title").text(storymap.title);
+    setPage(0);
+
+
+});
+</script>
+</html>
