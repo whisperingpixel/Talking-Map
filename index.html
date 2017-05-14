@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>StoryMap</title>
+<title>Talking Map</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -58,6 +58,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 }
 
 .navigation{ float:right;}
+
+.nav-button{width:150px;}
+
 </style>
 <body>
 
@@ -73,8 +76,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div>
 <div class="w3-third story-wrapper">
     <div id="story" class="story w3-margin-small">
-        <div class="w3-padding w3-light-grey"><h4 class="title"></h4></div>
-        <div class="content w3-padding"><p></p></div>
+        <div class="w3-padding titlebox"><h4 class="title w3-text-theme"></h4></div>
+        <div class="content w3-padding"></div>
     
     </div>
 </div>
@@ -103,10 +106,10 @@ $(function(){
    
 
    var storymap = {
-       title: "This is the storymap title",
+       title: "About talking maps",
        pages: [{
-            title: "Why Open-Source StoryMaps are cool as well",
-            content: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur",
+            title: "What is a talking map?",
+            content: "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p><h5>Test</h3><p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur</p>",
             map: function(){
                 $("#map").remove();
                 $(".map-wrapper").append('<div id="map"></div>');
@@ -132,7 +135,7 @@ $(function(){
     function setPage(page){
         $("#story").find(".title").text(storymap.pages[page].title);
         $("#story").find(".content")
-            .text(storymap.pages[page].content)
+            .html(storymap.pages[page].content)
             .slimScroll({
                 height:  (story_height - 35 - $("#story").find(".title").height()) + 'px'
             });
@@ -141,17 +144,46 @@ $(function(){
         storymap.pages[page].map();
         current_page = page;
         
+        
+        /*
+         * Add navigation to the bottom
+         */
+        
+        $(".content").append('<div class="w3-margin w3-center"><div id="nav-button-back" class="w3-btn w3-theme w3-margin nav-button">Back</div><div id="nav-button-cont" class="w3-btn w3-theme nav-button w3-margin ">Continue</div></div>');
+        
         if(page==0){
             $("#page-back").addClass("w3-disabled");
+            $("#nav-button-back").addClass("w3-disabled");
         }else{
             $("#page-back").removeClass("w3-disabled");
+            $("#nav-button-back")
+                .removeClass("w3-disabled")
+                .click(function(){
+                    setPage(current_page-1);
+                }); 
         }
         
         if(page==(storymap.pages.length-1)){
             $("#page-forward").addClass("w3-disabled");
+            $("#nav-button-cont").addClass("w3-disabled");
         }else{
             $("#page-forward").removeClass("w3-disabled");
+            $("#nav-button-cont")
+                .removeClass("w3-disabled")
+                .click(function(){
+                    setPage(current_page+1);
+                });                
         }
+        
+        /*
+         * Apply Styling
+         */
+        $(".content").find("h4").addClass("w3-text-theme");
+        $(".content").find("h4").addClass("w3-text-theme");
+        $(".content").find("h5").addClass("w3-text-theme");
+        $(".content").find("h6").addClass("w3-text-theme");
+        $(".content").find("h7").addClass("w3-text-theme");
+        
         
     }
         
