@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+
 <script type="text/javascript">(function(e){e.fn.extend({slimScroll:function(f){var a=e.extend({width:"auto",height:"250px",size:"7px",color:"#000",position:"right",distance:"1px",start:"top",opacity:.4,alwaysVisible:!1,disableFadeOut:!1,railVisible:!1,railColor:"#333",railOpacity:.2,railDraggable:!0,railClass:"slimScrollRail",barClass:"slimScrollBar",wrapperClass:"slimScrollDiv",allowPageScroll:!1,wheelStep:20,touchScrollStep:200,borderRadius:"7px",railBorderRadius:"7px"},f);this.each(function(){function v(d){if(r){d=d||window.event;
 var c=0;d.wheelDelta&&(c=-d.wheelDelta/120);d.detail&&(c=d.detail/3);e(d.target||d.srcTarget||d.srcElement).closest("."+a.wrapperClass).is(b.parent())&&n(c,!0);d.preventDefault&&!k&&d.preventDefault();k||(d.returnValue=!1)}}function n(d,g,e){k=!1;var f=b.outerHeight()-c.outerHeight();g&&(g=parseInt(c.css("top"))+d*parseInt(a.wheelStep)/100*c.outerHeight(),g=Math.min(Math.max(g,0),f),g=0<d?Math.ceil(g):Math.floor(g),c.css({top:g+"px"}));l=parseInt(c.css("top"))/(b.outerHeight()-c.outerHeight());g=
 l*(b[0].scrollHeight-b.outerHeight());e&&(g=d,d=g/b[0].scrollHeight*b.outerHeight(),d=Math.min(Math.max(d,0),f),c.css({top:d+"px"}));b.scrollTop(g);b.trigger("slimscrolling",~~g);w();p()}function x(){u=Math.max(b.outerHeight()/b[0].scrollHeight*b.outerHeight(),30);c.css({height:u+"px"});var a=u==b.outerHeight()?"none":"block";c.css({display:a})}function w(){x();clearTimeout(B);l==~~l?(k=a.allowPageScroll,C!=l&&b.trigger("slimscroll",0==~~l?"top":"bottom")):k=!1;C=l;u>=b.outerHeight()?k=!0:(c.stop(!0,
@@ -26,7 +27,12 @@ x();"bottom"===a.start?(c.css({top:b.outerHeight()-c.outerHeight()}),n(0,!0)):"t
     
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
-.footer{position:absolute;bottom:0px;width:100%;}
+.footer{
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:40px;
+}
 
 .header{
     -webkit-box-shadow: 0px 0px 6px 2px rgba(184,184,184,1);
@@ -34,11 +40,21 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     box-shadow: 0px 0px 6px 2px rgba(184,184,184,1);    
 }
 
-.navigation{ float:right;}
+.navigation{float:right;}
 
-.nav-button{width:150px;}
+.nav-button{
+    width:150px;
+    box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+}
+.nav-button:hover{
+     box-shadow:none;
+}
 
 .border-top{border-top: 1px solid #ccc;}
+
+.slimScrollBar{
+    opacity: 0.2 !important;
+}
 
 </style>
 
@@ -51,27 +67,27 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <body>
 
 <header class="w3-container w3-theme header">
-  <div class="w3-quarter"><h3 id="story-title"></h3></div>
-  <div class="w3-rest navigation w3-padding">
+  <span style="float:left"><h3 id="story-title"></h3></span>
+  <span class="navigation w3-padding">
     <div id="pages" class="w3-bar">
     </div>  
-  </div>
+  </span>
 </header>
 
 
 <div>
 <div class="w3-third story-wrapper">
     <div id="story" class="story w3-margin-small">
-        <div class="w3-padding titlebox"><h4 class="title w3-text-theme"></h4></div>
-        <div class="content w3-padding"></div>
+        <div class="story-titlebar"><div class="w3-padding"><h4 class="title w3-text-theme"></h4></div></div>
+        <div class="story-content"><div class="content w3-padding"></div></div>
     
     </div>
 </div>
-<div class="w3-twothird map-wrapper"></div>
+<div class="w3-twothird map-wrapper w3-card"></div>
 </div>
 
-<footer class="footer w3-padding w3-theme w3-margin-top">
-  2017 | Martin Sudmanns
+<footer class="footer w3-theme">
+  <div class="w3-padding">2017 | Martin Sudmanns</div>
 </footer>
 
 </body>
@@ -82,32 +98,116 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
  */
 var current_page = -1;
 var current_map = null;
-var storage = {};    
+var storage = {};
+var content_height = 0;
 </script>
 
 <script>
 $(function(){
 
+     /*
+      * Set navigation buttons on top right corner
+      */   
+     $("#pages").append('<a href="#" id="page-back" class="w3-button w3-disabled page">&laquo;</a>');
+      for (var i=0;i<storymap.pages.length;i++){
+          $("#pages").append('<a href="#" class="w3-button page">'+(i+1)+'</a>');
+      }
+      $("#pages").append(' <a href="#" id="page-forward" class="w3-button page">&raquo;</a>');
+     
+     $(".page").click(function(){
+         if ($(this).attr("id") == "page-back"){
+             var page = current_page -1;
+             setPage(page);
+         }else if($(this).attr("id") == "page-forward"){
+             var page = current_page + 1;
+             setPage(page);
+         }else{
+           var page = parseInt($(this).text()) - 1;
+           setPage(page);
+        }
+     });
+      
+    /*
+     * Set storymap
+     */
+    $("#story-title").text(storymap.title);
+    
+
+    function setScollbar(){
+        $(".content").slimScroll({
+                height: ($(".story-content").height() -1) + "px",
+                scrollTo: 0
+        });
+    }
+    
    /*
     * Setting height and width
     */
-    var height = $(document).height();
-    var margins = 56;
-    var story_height = height - $("header").height() - $("footer").height() - margins;
-    var map_height = height - $(".header").height() - $(".footer").height() - margins;
+    function setHeightAndWidth(){
 
-    $(".story-wrapper").height(story_height);
-    $(".map-wrapper").height(map_height);
+        var content_height = $(window).height() - $(".header").height() - $(".footer").height();
+
+        $(".story-wrapper").height(content_height);
+        $(".story-content").height(content_height - $(".story-titlebar").height());
+        $(".map-wrapper").height(content_height);
+        $("#map").height(content_height - 1);
+        
+        
+        if ($("#nav-button-back").length != 0){
+            if ($(window).width() < 1050){
+                $("#nav-button-back")
+                    .css({"width":"40px"})
+                    .html("&laquo;")
+                    .addClass("w3-round-xxlarge");           
+                $("#nav-button-cont")
+                    .css({"width":"40px"})
+                    .html("&raquo;")
+                    .addClass("w3-round-xxlarge");
+            }else{
+                $("#nav-button-back")
+                    .css({"width":"100px"})
+                    .html("Back")
+                    .removeClass("w3-round-xxlarge");     
+                $("#nav-button-cont")
+                    .css({"width":"100px"})
+                    .html("Continue")
+                    .removeClass("w3-round-xxlarge");          
+            }
+            if ($(window).width() < 700){
+                $("#nav-button-back").parent().removeClass("w3-margin");
+            }else{
+                $("#nav-button-back").parent().addClass("w3-margin");
+            }
+        }
+        
+        setScollbar();
+            
+        return content_height;
+    }
+    
+    
+    
     $(".map-wrapper").append('<div id="map"></div>');
-    $("#map").height(map_height);          
+    
+    
+    content_height = setHeightAndWidth();
+
+    $(window).resize(function(){
+        setHeightAndWidth();
+    });
 
     /*
      * Set pages
      */
-     
+
+    setPage(0);
+    
     function setPage(page){
         
-        // cleanup storage
+        /*
+         * cleanup storage and execute the cleanup function, if the
+         * user provides one
+         */
         if (current_page != -1){
             if (storymap.pages[current_page].cleanupHook != null){
                 storymap.pages[current_page].cleanupHook();
@@ -115,23 +215,32 @@ $(function(){
         }
         storage = {};
         
+        /*
+         * Set current page number as global variable
+         */
         current_page = page;
-                
+        
+        /*
+         * Set content of the story and create scrollbar
+         */
         $("#story").find(".title").text(storymap.pages[page].title);
+        
         $("#story").find(".content")
             .html(storymap.pages[page].content)
-            .append('<div class="w3-margin w3-center border-top"><div id="nav-button-back" class="w3-btn w3-theme w3-margin nav-button">Back</div><div id="nav-button-cont" class="w3-btn w3-theme nav-button w3-margin ">Continue</div></div>')
-            .slimScroll({
-                height:  (story_height - 38 - $("#story").find(".title").height()) + 'px'
-            });
-        
+            .append('<div class="w3-margin w3-center border-top"><div id="nav-button-back" class="w3-btn w3-theme w3-margin nav-button">Back</div><div id="nav-button-cont" class="w3-btn w3-theme nav-button w3-margin ">Continue</div></div>');
 
-        storymap.pages[page].map();
+        
+        /*
+         * Set map
+         */
+        if (storymap.pages[page].map != null){
+            storymap.pages[page].map();
+        }
 
-        $("button").addClass("w3-button w3-block w3-round w3-margin-top w3-border-theme");
         
-        
-        
+        /*
+         * Set navigation buttons
+         */
         if(page==0){
             $("#page-back").addClass("w3-disabled");
             $("#nav-button-back").addClass("w3-disabled");
@@ -159,38 +268,23 @@ $(function(){
         /*
          * Apply Styling
          */
-        $(".content").find("h4").addClass("w3-text-theme");
+        $(".content").find("h3").addClass("w3-text-theme");
         $(".content").find("h4").addClass("w3-text-theme");
         $(".content").find("h5").addClass("w3-text-theme");
         $(".content").find("h6").addClass("w3-text-theme");
         $(".content").find("h7").addClass("w3-text-theme");
         
-    }
+        $("button").addClass("w3-button w3-block w3-round w3-margin-top w3-border-theme");
         
-     $("#pages").append('<a href="#" id="page-back" class="w3-button w3-disabled page">&laquo;</a>');
-      for (var i=0;i<storymap.pages.length;i++){
-          $("#pages").append('<a href="#" class="w3-button page">'+(i+1)+'</a>');
-      }
-      $("#pages").append(' <a href="#" id="page-forward" class="w3-button page">&raquo;</a>');
-     
-     $(".page").click(function(){
-         if ($(this).attr("id") == "page-back"){
-             var page = current_page -1;
-             setPage(page);
-         }else if($(this).attr("id") == "page-forward"){
-             var page = current_page + 1;
-             setPage(page);
-         }else{
-           var page = parseInt($(this).text()) - 1;
-           setPage(page);
+        if (storymap.customStyling != null){
+            storymap.customStyling();
         }
-     });
-      
-    /*
-     * Set storymap
-     */
-    $("#story-title").text(storymap.title);
-    setPage(0);
+        
+        setHeightAndWidth();
+    }
+    
+
+
 
 });
 </script>
