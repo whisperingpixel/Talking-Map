@@ -21,37 +21,14 @@ width:a.width,height:a.height});var m=e("<div></div>").addClass(a.railClass).css
 WebkitBorderRadius:a.borderRadius,zIndex:99}),h="right"==a.position?{right:a.distance}:{left:a.distance};m.css(h);c.css(h);b.wrap(q);b.parent().append(c);b.parent().append(m);a.railDraggable&&c.bind("mousedown",function(a){var b=e(document);z=!0;t=parseFloat(c.css("top"));pageY=a.pageY;b.bind("mousemove.slimscroll",function(a){currTop=t+a.pageY-pageY;c.css("top",currTop);n(0,c.position().top,!1)});b.bind("mouseup.slimscroll",function(a){z=!1;p();b.unbind(".slimscroll")});return!1}).bind("selectstart.slimscroll",
 function(a){a.stopPropagation();a.preventDefault();return!1});m.hover(function(){w()},function(){p()});c.hover(function(){y=!0},function(){y=!1});b.hover(function(){r=!0;w();p()},function(){r=!1;p()});b.bind("touchstart",function(a,b){a.originalEvent.touches.length&&(A=a.originalEvent.touches[0].pageY)});b.bind("touchmove",function(b){k||b.originalEvent.preventDefault();b.originalEvent.touches.length&&(n((A-b.originalEvent.touches[0].pageY)/a.touchScrollStep,!0),A=b.originalEvent.touches[0].pageY)});
 x();"bottom"===a.start?(c.css({top:b.outerHeight()-c.outerHeight()}),n(0,!0)):"top"!==a.start&&(n(e(a.start).position().top,null,!0),a.alwaysVisible||c.hide());window.addEventListener?(this.addEventListener("DOMMouseScroll",v,!1),this.addEventListener("mousewheel",v,!1)):document.attachEvent("onmousewheel",v)}});return this}});e.fn.extend({slimscroll:e.fn.slimScroll})})(jQuery);</script>
+
 <style>
     
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
-.w3-theme-l5 {color:#000 !important; background-color:#eef3fb !important}
-.w3-theme-l4 {color:#000 !important; background-color:#c8d9f2 !important}
-.w3-theme-l3 {color:#000 !important; background-color:#90b2e5 !important}
-.w3-theme-l2 {color:#fff !important; background-color:#598cd8 !important}
-.w3-theme-l1 {color:#fff !important; background-color:#2d68c0 !important}
-.w3-theme-d1 {color:#fff !important; background-color:#1d427b !important}
-.w3-theme-d2 {color:#fff !important; background-color:#1a3b6d !important}
-.w3-theme-d3 {color:#fff !important; background-color:#16345f !important}
-.w3-theme-d4 {color:#fff !important; background-color:#132c52 !important}
-.w3-theme-d5 {color:#fff !important; background-color:#102544 !important}
-
-.w3-theme-light {color:#000 !important; background-color:#eef3fb !important}
-.w3-theme-dark {color:#fff !important; background-color:#102544 !important}
-.w3-theme-action {color:#fff !important; background-color:#102544 !important}
-
-.w3-theme {color:#fff !important; background-color:#204a87 !important}
-.w3-text-theme {color:#204a87 !important}
-.w3-border-theme {border-color:#204a87 !important}
-
-.w3-hover-theme:hover {color:#fff !important; background-color:#204a87 !important}
-.w3-hover-text-theme {color:#204a87 !important}
-.w3-hover-border-theme:hover {border-color:#204a87 !important}
-
 .footer{position:absolute;bottom:0px;width:100%;}
 
 .header{
-    border-bottom: 1px solid #598cd8;
     -webkit-box-shadow: 0px 0px 6px 2px rgba(184,184,184,1);
     -moz-box-shadow: 0px 0px 6px 2px rgba(184,184,184,1);
     box-shadow: 0px 0px 6px 2px rgba(184,184,184,1);    
@@ -61,7 +38,16 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 .nav-button{width:150px;}
 
+.border-top{border-top: 1px solid #ccc;}
+
 </style>
+
+<!-- This is your storymap-data -->
+<script type="text/javascript" src="data/dummy.json"></script>
+
+<!-- This is the styling-theme -->
+<link rel="stylesheet" href="themes/emerald.css">
+
 <body>
 
 <header class="w3-container w3-theme header">
@@ -91,65 +77,60 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </body>
 
 <script>
-$(function(){
-    
-   var current_page = 0;
-   var current_map = null;
-    
-   var height = $(document).height();
-   var margins = 60;
-   var story_height = height - $("header").height() - $("footer").height() - margins;
-   var map_height = height - $(".header").height() - $(".footer").height() -58;
-   
-   $(".story-wrapper").height(story_height);
-   $(".map-wrapper").height(map_height);
-   
+/*
+ * Defining global variable,s including storage
+ */
+var current_page = -1;
+var current_map = null;
+var storage = {};    
+</script>
 
-   var storymap = {
-       title: "About talking maps",
-       pages: [{
-            title: "What is a talking map?",
-            content: "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p><h5>Test</h3><p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur</p>",
-            map: function(){
-                $("#map").remove();
-                $(".map-wrapper").append('<div id="map"></div>');
-                $("#map").height(map_height);                
-                current_map = L.map('map').setView([48, 11], 5);
-                new L.StamenTileLayer("terrain").addTo(current_map)
-            }
-       },{
-            title:"This is the next page",
-            content: "this is content",
-            map: function(){
-                current_map.setView([48, 11], 10);
-            }            
-        }]
-   
-    };
-    
-    
+<script>
+$(function(){
+
+   /*
+    * Setting height and width
+    */
+    var height = $(document).height();
+    var margins = 56;
+    var story_height = height - $("header").height() - $("footer").height() - margins;
+    var map_height = height - $(".header").height() - $(".footer").height() - margins;
+
+    $(".story-wrapper").height(story_height);
+    $(".map-wrapper").height(map_height);
+    $(".map-wrapper").append('<div id="map"></div>');
+    $("#map").height(map_height);          
+
     /*
      * Set pages
      */
-
+     
     function setPage(page){
+        
+        // cleanup storage
+        if (current_page != -1){
+            if (storymap.pages[current_page].cleanupHook != null){
+                storymap.pages[current_page].cleanupHook();
+            }
+        }
+        storage = {};
+        
+        current_page = page;
+                
         $("#story").find(".title").text(storymap.pages[page].title);
         $("#story").find(".content")
             .html(storymap.pages[page].content)
+            .append('<div class="w3-margin w3-center border-top"><div id="nav-button-back" class="w3-btn w3-theme w3-margin nav-button">Back</div><div id="nav-button-cont" class="w3-btn w3-theme nav-button w3-margin ">Continue</div></div>')
             .slimScroll({
-                height:  (story_height - 35 - $("#story").find(".title").height()) + 'px'
+                height:  (story_height - 38 - $("#story").find(".title").height()) + 'px'
             });
         
 
         storymap.pages[page].map();
-        current_page = page;
+
+        $("button").addClass("w3-button w3-block w3-round w3-margin-top w3-border-theme");
         
         
-        /*
-         * Add navigation to the bottom
-         */
-        
-        $(".content").append('<div class="w3-margin w3-center"><div id="nav-button-back" class="w3-btn w3-theme w3-margin nav-button">Back</div><div id="nav-button-cont" class="w3-btn w3-theme nav-button w3-margin ">Continue</div></div>');
         
         if(page==0){
             $("#page-back").addClass("w3-disabled");
@@ -184,7 +165,6 @@ $(function(){
         $(".content").find("h6").addClass("w3-text-theme");
         $(".content").find("h7").addClass("w3-text-theme");
         
-        
     }
         
      $("#pages").append('<a href="#" id="page-back" class="w3-button w3-disabled page">&laquo;</a>');
@@ -211,7 +191,6 @@ $(function(){
      */
     $("#story-title").text(storymap.title);
     setPage(0);
-
 
 });
 </script>
