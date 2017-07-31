@@ -56,6 +56,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     opacity: 0.2 !important;
 }
 
+body {
+    background-color: lightgrey;
+}
 </style>
 
 <!-- This is your storymap-data -->
@@ -76,7 +79,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
 <div>
-<div class="w3-third story-wrapper">
+<div class="w3-third story-wrapper w3-white">
     <div id="story" class="story w3-margin-small">
         <div class="story-titlebar"><div class="w3-padding"><h4 class="title w3-text-theme"></h4></div></div>
         <div class="story-content"><div class="content w3-padding"></div></div>
@@ -153,12 +156,13 @@ $(function(){
     function setLayout(){
         if( layout == "text-only"){
             $("#map").parent().addClass("w3-hide");            
-            if ($(window).width() < 700){
+            if ($(window).width() < 850){
                 /*
                  * If the screen is too small and we have a single text-page
                  * make it full width
                  */
                 $("#story").parent()
+                    .removeClass("w3-third")
                     .removeClass("w3-half")
                     .removeClass("w3-card")
                     .addClass("w3-rest")
