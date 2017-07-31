@@ -2,36 +2,33 @@
        title: "About talking maps",
        pages: [{
             title: "What is a talking map?",
-            content: "<h5>Introduction</h5><p>The idea is based on the idea of ESRI StoryMaps, however, you need more programming to use it. It defines the layout, but all the content is defined in a separate file as json document. It includes JavaScript code (which you need to write), e.g., to define maps, zoom to locations etc.</p><p>The advantage is that it gives you a lot of freedom, but still with less effort, compared to doing everything from scratch on your own.<p><div class='w3-card w3-padding w3-margin-bottom'><h5>Box</h5>This might be content, which is very important and therefore needs to be highlighted. Some background-color can be applied as well.</div><div class='w3-card w3-padding w3-theme-l5 w3-margin-bottom'><h5>Important</h5>This is an example with a background-color (from the theme).</div><h5>This Is Just a Dummy</h5>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p><h5>Test</h5><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Waermeleitpad01.jpg/1280px-Waermeleitpad01.jpg' width=100% /><p>You can show images here to support the map content.</p>",
+            content: "This is the first page, which is only text and images, without a map. An introduction might go here as well.",
+            layout:"text-only",
             map: function(){
-                if (current_map != null){
-                    current_map.remove();
-                }            
+
+            }
+           },{
+            title: "What is a talking map?",
+            content: "<h5>Introduction</h5><p>The idea is based on the idea of ESRI StoryMaps, however, you need more programming to use it. It defines the layout, but all the content is defined in a separate file as json document. It includes JavaScript code (which you need to write), e.g., to define maps, zoom to locations etc.</p><p>The advantage is that it gives you a lot of freedom, but still with less effort, compared to doing everything from scratch on your own.<p><div class='w3-card w3-padding w3-margin-bottom'><h5>Box</h5>This might be content, which is very important and therefore needs to be highlighted. Some background-color can be applied as well.</div><div class='w3-card w3-padding w3-theme-l5 w3-margin-bottom'><h5>Box</h5>This is an example with a background-color (from the theme).</div><div class='w3-card w3-padding important w3-margin-bottom'><h5 class='important-title'>Important</h5>This is an example for custom styling.</div><h5>This Is Just a Dummy</h5>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p><h5>Test</h5><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Waermeleitpad01.jpg/1280px-Waermeleitpad01.jpg' width=100% /><p>You can show images here to support the map content.</p>",
+            layout: "combined",
+            map: function(){
  
-                current_map = L.map('map').setView([51.505, -0.09], 13);
+                storage.map.setView([51.505, -0.09], 13);
 
-                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                    maxZoom: 18,
-                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                    id: 'mapbox.streets'
-                }).addTo(current_map);
-
-                L.marker([51.5, -0.09]).addTo(current_map)
+                L.marker([51.5, -0.09]).addTo(storage.map)
                     .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 
                 L.circle([51.508, -0.11], 500, {
                     color: 'red',
                     fillColor: '#f03',
                     fillOpacity: 0.5
-                }).addTo(current_map).bindPopup("I am a circle.");
+                }).addTo(storage.map).bindPopup("I am a circle.");
 
                 L.polygon([
                     [51.509, -0.08],
                     [51.503, -0.06],
                     [51.51, -0.047]
-                ]).addTo(current_map).bindPopup("I am a polygon.");
+                ]).addTo(storage.map).bindPopup("I am a polygon.");
 
 
                 var popup = L.popup();
@@ -40,23 +37,49 @@
                     popup
                         .setLatLng(e.latlng)
                         .setContent("You clicked the map at " + e.latlng.toString())
-                        .openOn(current_map);
+                        .openOn(storage.map);
                 }
 
-                current_map.on('click', onMapClick);                
+                storage.map.on('click', onMapClick);                
             },
             cleanupHook: function(){
                 console.log("This function will be executed, when user leaves the page");
             }
        },{
             title:"This is the next page",
-            content: "<p>this is content</p><div class='w3-card w3-padding'><h5>Important</h5>This might be content, which is very important and therefore needs to be highlighted. Some background-color can be applied as well.</div><p>The talking map dully relies on the themes, which you can generate here: <a href='https://www.w3schools.com/w3css/w3css_color_themes.asp' target=_blank>https://www.w3schools.com/w3css/w3css_color_themes.asp</a></p>",
+            content: "<p>this is content</p><div class='w3-card w3-padding'><h5>Important</h5>This might be content, which is very important and therefore needs to be highlighted. Some background-color can be applied as well.</div><p>The talking map  relies on the themes, which you can generate here: <a href='https://www.w3schools.com/w3css/w3css_color_themes.asp' target=_blank>https://www.w3schools.com/w3css/w3css_color_themes.asp</a></p>",
+            layout: "combined",            
             map: function(){
-                current_map.setView([48, 11], 10);
+                storage.map.setView([48, 11], 10);
             },
             cleanupHook: function(){
                 console.log("This function will be executed, when user leaves the page");
             }            
-        }]
+        }],
+        startup: function(){
+            /*
+             * This function will be executed when the first page is
+             * opened, no matter, what content it contains.
+             */
+                if (storage.map != null){
+                    storage.map.off();
+                    storage.map.remove();
+                }
+                storage.map = initialiseMap(true);
+                
+                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                    maxZoom: 18,
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                    id: 'mapbox.streets'
+                }).addTo(storage.map);            
+        },
+        customStyling: function(){
+            $(".important").addClass("w3-red");
+            $(".important-title")
+                .removeClass("w3-text-theme")
+                .addClass("w3-text-white");
+        }        
    
     };

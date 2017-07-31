@@ -94,15 +94,22 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <script>
 /*
- * Defining global variable,s including storage
+ * Defining global variables, including storage
  */
 var current_page = -1;
-var current_map = null;
+var layout = null;
 var storage = {};
-var content_height = 0;
+
+function initialiseMap(){
+
+    return new L.map('map');
+    
+}
+
 </script>
 
 <script>
+  
 $(function(){
 
      /*
@@ -136,8 +143,47 @@ $(function(){
     function setScollbar(){
         $(".content").slimScroll({
                 height: ($(".story-content").height() -1) + "px",
-                scrollTo: 0
+                scrollTo: 0                
         });
+    }
+
+    /*
+     * Change layout depending on the type of page
+     */
+    function setLayout(){
+        if( layout == "text-only"){
+            $("#map").parent().addClass("w3-hide");            
+            if ($(window).width() < 700){
+                /*
+                 * If the screen is too small and we have a single text-page
+                 * make it full width
+                 */
+                $("#story").parent()
+                    .removeClass("w3-half")
+                    .removeClass("w3-card")
+                    .addClass("w3-rest")
+                    .css({"margin-left":"0%"});
+            }else{
+               $("#story").parent()
+                    .removeClass("w3-rest")
+                    .addClass("w3-half")
+                    .addClass("w3-card")
+                    .css({"margin-left":"25%"});
+            }
+                  
+        }
+
+        if (layout == null || layout == "combined"){
+            
+            $("#map").parent().removeClass("w3-hide");
+            $("#story").parent()
+                .addClass("w3-third")
+                .removeClass("w3-half")
+                .removeClass("w3-rest")
+                .removeClass("w3-card")
+                .css({"margin-left":"0%"});        
+        }
+        layout == null;
     }
     
    /*
@@ -145,14 +191,17 @@ $(function(){
     */
     function setHeightAndWidth(){
 
+        setLayout();
         var content_height = $(window).height() - $(".header").height() - $(".footer").height();
 
         $(".story-wrapper").height(content_height);
         $(".story-content").height(content_height - $(".story-titlebar").height());
         $(".map-wrapper").height(content_height);
         $("#map").height(content_height - 1);
-        
-        
+        $("#map").width("100%");
+        if (storage.map != null){
+            storage.map.invalidateSize();
+        }
         if ($("#nav-button-back").length != 0){
             if ($(window).width() < 1050){
                 $("#nav-button-back")
@@ -179,18 +228,14 @@ $(function(){
                 $("#nav-button-back").parent().addClass("w3-margin");
             }
         }
-        
+
         setScollbar();
-            
-        return content_height;
     }
+       
     
-    
-    
+               
     $(".map-wrapper").append('<div id="map"></div>');
-    
-    
-    content_height = setHeightAndWidth();
+    setHeightAndWidth();
 
     $(window).resize(function(){
         setHeightAndWidth();
@@ -202,8 +247,18 @@ $(function(){
 
     setPage(0);
     
+    /*
+     * Call the startup function
+     */
+    storymap.startup();
+
+    /*
+     * Set pages
+     */
+     
     function setPage(page){
         
+
         /*
          * cleanup storage and execute the cleanup function, if the
          * user provides one
@@ -213,35 +268,44 @@ $(function(){
                 storymap.pages[current_page].cleanupHook();
             }
         }
+        var map_t = storage.map;
         storage = {};
+        storage.map = map_t;
         
         /*
          * Set current page number as global variable
          */
         current_page = page;
+                
+        /*
+         * Set Page Layout
+         */
+        layout = storymap.pages[page].layout;
+
         
         /*
          * Set content of the story and create scrollbar
          */
         $("#story").find(".title").text(storymap.pages[page].title);
         
+        /*
+         * Set story
+         */
         $("#story").find(".content")
             .html(storymap.pages[page].content)
             .append('<div class="w3-margin w3-center border-top"><div id="nav-button-back" class="w3-btn w3-theme w3-margin nav-button">Back</div><div id="nav-button-cont" class="w3-btn w3-theme nav-button w3-margin ">Continue</div></div>');
-
-        
+            
         /*
          * Set map
          */
         if (storymap.pages[page].map != null){
             storymap.pages[page].map();
         }
-
-        
+                     
         /*
          * Set navigation buttons
          */
-        if(page==0){
+        if(page == 0){
             $("#page-back").addClass("w3-disabled");
             $("#nav-button-back").addClass("w3-disabled");
         }else{
@@ -250,10 +314,11 @@ $(function(){
                 .removeClass("w3-disabled")
                 .click(function(){
                     setPage(current_page-1);
+                    setHeightAndWidth();
                 }); 
         }
         
-        if(page==(storymap.pages.length-1)){
+        if(page == (storymap.pages.length-1)){
             $("#page-forward").addClass("w3-disabled");
             $("#nav-button-cont").addClass("w3-disabled");
         }else{
@@ -282,9 +347,6 @@ $(function(){
         
         setHeightAndWidth();
     }
-    
-
-
 
 });
 </script>
