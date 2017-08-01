@@ -7,3 +7,7 @@ I really like the idea of the ESRI StoryMaps. However, since I don't want to be 
 You probably want to use the ESRI StoryMaps instead of this one. I am developing the Talking Map in my spare time. To use it, you still need lots of manual work and programming, and it probably does not run smoothly on different browsers/ screen sizes etc.
 
 If you still want to use it, you can do it for any purpose you want. If you improve it, it would be nice if you could send me your improvements.
+
+# Example
+
+You can see a dummy version here: http://whisperingpixel.earth/talking-map/
